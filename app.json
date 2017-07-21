@@ -1,0 +1,19 @@
+{
+  "name": "Django GeoIP2 Middleware",
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "https://github.com/danstiner/heroku-buildpack-geoip-geolite2.git"
+    }
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": {
+      "required": true
+    },
+    "DJANGO_SECRET_KEY": {
+      "generator": "secret"
+    }
+  }
+}
