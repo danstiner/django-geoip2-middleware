@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.gis.geoip2 import GeoIP2
 
 class GeoIP2Middleware(object):
@@ -26,12 +27,14 @@ class GeoIP2Middleware(object):
 
     @staticmethod
     def get_client_ip(request):
+        if getattr(settings, 'DEBUG', False) and hasattr(settings, 'GEOIP2_DEBUG_CLIENT_IP'):
+            return settings.GEOIP2_DEBUG_CLIENT_IP
+
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
+            return x_forwarded_for.split(',')[0]
         else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
+            return request.META.get('REMOTE_ADDR')
 
     def process_template_response(self, request, response):
         if hasattr(request, 'geolocation'):

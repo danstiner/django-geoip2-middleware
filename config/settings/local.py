@@ -65,4 +65,6 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # Your local stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
-GEOIP_PATH=env('GEOIP_PATH')
+GEOIP_PATH = env('GEOIP_PATH')
+
+GEOIP2_DEBUG_CLIENT_IP = '8.8.8.8' # Address of Google Public DNS
